@@ -1,0 +1,199 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Calibri', sans-serif;
+}
+
+/* Container to hold the background and dialogue box */
+.visual-novel-container {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+/* Background image setup */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* Upper-left image */
+.upper-left-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20vw; /* Make the width relative */
+    height: auto;
+    z-index: 1;
+}
+
+/* Sliding image styling */
+.sliding-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%; 
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    z-index: 1;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.sliding-image.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sliding-image.faded {
+    opacity: 0.5;
+}
+
+/* Container for the name box and dialogue box */
+.dialogue-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2vw; /* Use viewport width for padding */
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+/* Name box styling */
+.name-box {
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 1.5vw;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    width: auto;
+    max-width: 90%;
+    text-align: left;
+}
+
+/* Dialogue box styling */
+.dialogue-box {
+    position: relative;
+    width: calc(100% - 20px);
+    padding: 2vw;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    word-wrap: break-word;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 150px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 3;
+}
+
+/* Arrow styling with pulsate effect */
+.dialogue-box::after {
+    content: '';
+    position: absolute;
+    bottom: 1.5vw;
+    right: 2vw;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-left: 15px solid rgba(255, 255, 255, 0.7);
+    border-bottom: 10px solid transparent;
+    animation: pulsate 1s infinite ease-in-out;
+}
+
+/* Text inside the dialogue box */
+.dialogue-text {
+    margin: 0;
+    white-space: normal;
+    display: block;
+}
+
+.dialogue-line {
+    display: none;
+}
+
+.dialogue-line.active {
+    display: inline;
+}
+
+/* Keyframes for pulsating effect */
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Optional: Make the dialogue box more responsive */
+@media (max-width: 768px) {
+    .name-box {
+        font-size: 1rem;
+    }
+
+    .dialogue-box {
+        font-size: 1rem;
+        padding: 1.5vw;
+        margin-left: 1vw;
+    }
+
+    .sliding-image {
+        height: 60%; /* Adjust height for smaller screens */
+    }
+}
+
+/* Further adjustments for very small screens (e.g., mobile) */
+@media (max-width: 480px) {
+    .name-box {
+        font-size: 0.9rem; /* Adjust further for mobile */
+        padding: 10px;
+    }
+
+    .dialogue-box {
+        font-size: 0.9rem;
+        padding: 10px;
+        margin-left: 5px;
+        width: calc(100% - 10px);
+    }
+
+    .sliding-image {
+        height: 50%; /* Reduce image height for smaller screens */
+    }
+
+    .dialogue-box::after {
+        bottom: 10px; /* Adjust arrow for smaller screens */
+        right: 10px;
+    }
+}
+
+/* Apply the color to all italicized text */
+em {
+    color: #d67296;
+}
